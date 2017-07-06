@@ -15,6 +15,8 @@ module.exports = function (url, main, title, link, file){
     link: link
     }])
     (function (err,data) {
+      console.log(data[0]);
+      console.log(data[0].toString());
       var params = {
           Bucket: 'newsbotkg',
           Key: file,

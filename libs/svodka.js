@@ -3,8 +3,9 @@ var AWS = require('aws-sdk');
 AWS.config.loadFromPath('./bucket.json');
 var s3 = new AWS.S3();
 
+var
 
-module.exports = {
+module.exports = {one,
   One(file) {
     return new Promise((resolve,reject)=>{
       var params = {

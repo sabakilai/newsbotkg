@@ -29,8 +29,8 @@ app.use('/', routes);
 app.use('/users', users);
 
 
-//news();
-svodka.All();
+news();
+//svodka.All();
 new CronJob('00 47 20 * * *', function() {
 
 }, null, true, 'Asia/Bishkek');
