@@ -54,11 +54,11 @@ router.post("/", function(req, res, next) {
           sms(message, chatId, ip, function() {
             setTimeout(function() {
               Promise.all([
-                this.One('knews.json'),
-                this.One('azattyk.json'),
-                this.One('sputnik.json'),
-                this.One('24.json'),
-                this.One('kloop.json')
+                svodka.One('knews.json'),
+                svodka.One('azattyk.json'),
+                svodka.One('sputnik.json'),
+                svodka.One('24.json'),
+                svodka.One('kloop.json')
               ]).then((news) =>{
                 var result = news[0] + '\n' + news[1] + '\n' + news[2] + '\n' + news[3] + '\n' + news[4];
                 console.log(result);
