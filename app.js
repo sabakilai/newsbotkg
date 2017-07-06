@@ -9,6 +9,8 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var CronJob = require('cron').CronJob;
 var news = require('./libs/news');
+var svodka = require('./libs/svodka');
+
 var app = express();
 
 // view engine setup
@@ -28,6 +30,7 @@ app.use('/users', users);
 
 
 //news();
+svodka.All();
 new CronJob('00 47 20 * * *', function() {
 
 }, null, true, 'Asia/Bishkek');
