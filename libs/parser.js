@@ -22,10 +22,8 @@ module.exports = function (url, main, title, link, file){
       };
       s3.putObject(params, function (perr, pres) {
           if (perr) {
-              console.log('bad');
               reject( perr);
           } else {
-              console.log('good');
               resolve('Added '+ file +' file');
           }
       });
