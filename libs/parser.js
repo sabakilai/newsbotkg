@@ -10,7 +10,9 @@ module.exports = function (url, main, title, link, file){
     link: link
     }])
     (function (err,data) {
+      console.log(data);
       data = data.slice(0, 1)
+      console.log(data);
       var params = {
           Bucket: 'newsbotkg',
           Key: file,
@@ -18,7 +20,7 @@ module.exports = function (url, main, title, link, file){
       };
       s3.putObject(params, function (perr, pres) {
           if (perr) {
-              reject("Error uploading data: ", perr);
+              reject( perr);
           } else {
               resolve('Added '+ file +' file');
           }
