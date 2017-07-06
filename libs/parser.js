@@ -1,6 +1,6 @@
 var x = require('x-ray')();
 var AWS = require('aws-sdk');
-AWS.config.loadFromPath('../bucket.json');
+AWS.config.loadFromPath('./bucket.json');
 var s3 = new AWS.S3();
 
 module.exports = function (url, main, title, link, file){
