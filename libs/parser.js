@@ -1,7 +1,12 @@
-var x = require('x-ray')();
 var AWS = require('aws-sdk');
 AWS.config.loadFromPath('./bucket.json');
 var s3 = new AWS.S3();
+var Xray = require('x-ray');
+var x = Xray({
+  filters: {
+    replace: function (value) {
+      return typeof value === 'string' ? value.replace(/(?:\r\n|\r|\n|\t|\\)/g, "").trim() : value}}
+});
 
 module.exports = function (url, main, title, link, file){
   return new Promise(function (resolve, reject) {
@@ -10,7 +15,6 @@ module.exports = function (url, main, title, link, file){
     link: link
     }])
     (function (err,data) {
-      console.log(data);
       data = data.slice(0, 1)
       console.log(data);
       var params = {
