@@ -9,7 +9,7 @@ module.exports = function (){
     parser('http://knews.kg/','.td-block-span4','.h3','a@href', 'knews.json')
   ]).then((messages) =>{
     console.log(messages);
-  }.catch((error) =>{
+  }).catch((error) =>{
     console.log('Error saving files: ' + error);
   })
 }
