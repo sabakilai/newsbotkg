@@ -15,7 +15,10 @@ module.exports = function (url, main, title, link, file){
     link: link
     }])
     (function (err,data) {
-      data = data.slice(0, 1)
+      data = data.slice(0, 1);
+
+      console.log(data);
+      data = data.replace(/[\[\]']+/g, '');
       console.log(data);
       var params = {
           Bucket: 'newsbotkg',
