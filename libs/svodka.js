@@ -22,16 +22,21 @@ module.exports = {
     });
   },
   All() {
-    Promise.all([
-      this.One('knews.json'),
-      this.One('azattyk.json'),
-      this.One('sputnik.json'),
-      this.One('24.json'),
-      this.One('kloop.json')
-    ]).then((news) =>{
-      var result = news[0] + '\n' + news[1] + '\n' + news[2] + '\n' + news[3] + '\n' + news[4];
-      console.log(result);
-      return result;
+    return new Promise((resolve,reject) => {
+      Promise.all([
+        this.One('knews.json'),
+        this.One('azattyk.json'),
+        this.One('sputnik.json'),
+        this.One('24.json'),
+        this.One('kloop.json')
+      ]).then((news) => {
+        var result = news[0] + '\n' + news[1] + '\n' + news[2] + '\n' + news[3] + '\n' + news[4];
+        resolve(result);
+      }).catch((error) => {
+        console.log(error);
+        rejects(error);
+      })
     })
+
   }
 };
