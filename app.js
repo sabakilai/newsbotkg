@@ -8,9 +8,9 @@ var db = require("./data/db.js");
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var CronJob = require('cron').CronJob;
-var job = require('./libs/job')
+
 var app = express();
-var meteokgbot = require('./libs/meteoparser');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -27,9 +27,9 @@ app.use('/', routes);
 app.use('/users', users);
 
 
-meteokgbot.Chui();
+
 new CronJob('00 47 20 * * *', function() {
-  job.MainJob();
+
 }, null, true, 'Asia/Bishkek');
 
 
