@@ -53,11 +53,24 @@ router.post("/", function(req, res, next) {
           var message = "Вот последние пять новостей.";
           sms(message, chatId, ip, function() {
             setTimeout(function() {
-              sms(svodka.All(), chatId, ip,function() {
-                setTimeout(function() {
-                  sms('All comands', chatId, ip);
-                }, 3000);
-              });
+              Promise.all([
+                this.One('knews.json'),
+                this.One('azattyk.json'),
+                this.One('sputnik.json'),
+                this.One('24.json'),
+                this.One('kloop.json')
+              ]).then((news) =>{
+                var result = news[0] + '\n' + news[1] + '\n' + news[2] + '\n' + news[3] + '\n' + news[4];
+                console.log(result);
+                sms(result, chatId, ip,function() {
+                  setTimeout(function() {
+                    sms('All comands', chatId, ip);
+                  }, 3000);
+                });
+              })
+
+
+
             }, 1000);
           })
         }
