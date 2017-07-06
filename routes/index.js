@@ -32,7 +32,7 @@ router.post("/", function(req, res, next) {
         console.log("user follows");
         newChat(userId, ip, function(err, res, body) {
           var chatId = body.data.id;
-          var message = "Здравствуйте!Я буду присылать вам самые свежие новости." + lastNews();
+          var message = "Здравствуйте!Я буду присылать вам самые свежие новости. " + lastNews();
           sms(message, chatId, ip);
         })
       });

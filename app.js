@@ -8,7 +8,7 @@ var db = require("./data/db.js");
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var CronJob = require('cron').CronJob;
-
+var news = require('./libs/news');
 var app = express();
 
 // view engine setup
@@ -27,7 +27,7 @@ app.use('/', routes);
 app.use('/users', users);
 
 
-
+news();
 new CronJob('00 47 20 * * *', function() {
 
 }, null, true, 'Asia/Bishkek');
