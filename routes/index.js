@@ -6,7 +6,7 @@ var newChat = require("../models/newchat.js");
 var async = require('async');
 var router = express.Router();
 var pg = require('pg');
-
+var svodka = require('../libs/svodka')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -53,7 +53,7 @@ router.post("/", function(req, res, next) {
           var message = "Вот последние пять новостей.";
           sms(message, chatId, ip, function() {
             setTimeout(function() {
-              sms("Last 3 news", chatId, ip,function() {
+              sms(svodka.All(), chatId, ip,function() {
                 setTimeout(function() {
                   sms('All comands', chatId, ip);
                 }, 3000);

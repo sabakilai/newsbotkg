@@ -30,7 +30,7 @@ module.exports = {
       this.One('kloop.json')
     ]).then((news) =>{
       var result = news[0] + '\n' + news[1] + '\n' + news[2] + '\n' + news[3] + '\n' + news[4];
-      console.log(result);
+      return result;
     })
   }
 };
