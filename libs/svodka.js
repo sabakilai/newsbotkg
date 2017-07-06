@@ -24,11 +24,11 @@ module.exports = {
   },
   All() {
     Promise.all([
-      One('knews.json'),
-      One('azattyk.json'),
-      One('sputnik.json'),
-      One('24.json'),
-      One('kloop.json')
+      this.One('knews.json'),
+      this.One('azattyk.json'),
+      this.One('sputnik.json'),
+      this.One('24.json'),
+      this.One('kloop.json')
     ]).then((news) =>{
       var result = news[0] + '\n' + news[1] + '\n' + news[2] + '\n' + news[3] + '\n' + news[4];
       console.log(result);
