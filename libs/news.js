@@ -1,4 +1,4 @@
-var parser = require('./libs/parser.js');
+var parser = require('../libs/parser.js');
 
 module.exports = function (){
   Promise.all([
