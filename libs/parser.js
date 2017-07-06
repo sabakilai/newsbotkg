@@ -15,10 +15,12 @@ module.exports = function (url, main, title, link, file){
     link: link
     }])
     (function (err,data) {
+      var output = data[0];
+      console.log( data[0].title);
       var params = {
           Bucket: 'newsbotkg',
           Key: file,
-          Body: data[0]
+          Body: output
       };
       s3.putObject(params, function (perr, pres) {
           if (perr) {
