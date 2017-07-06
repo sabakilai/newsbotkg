@@ -23,7 +23,7 @@ module.exports = function (url, main, title, link, file){
       var params = {
           Bucket: 'newsbotkg',
           Key: file,
-          Body: output
+          Body: output.toString()
       };
       s3.putObject(params, function (perr, pres) {
           if (perr) {
