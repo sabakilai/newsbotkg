@@ -11,7 +11,7 @@ var CronJob = require('cron').CronJob;
 
 
 var svodka = require('./libs/svodka');
-var job = require('./lib/job');
+var job = require('./libs/job');
 
 var app = express();
 
