@@ -10,7 +10,6 @@ var users = require('./routes/users');
 var CronJob = require('cron').CronJob;
 
 
-var news = require('./libs/news');
 var svodka = require('./libs/svodka');
 var job = require('./lib/job');
 
