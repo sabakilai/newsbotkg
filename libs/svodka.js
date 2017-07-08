@@ -21,6 +21,21 @@ module.exports = {
       })
     });
   },
+  Raw(file) {
+    return new Promise((resolve,reject)=>{
+      var params = {
+          Bucket: 'newsbotkg',
+          Key: file
+      };
+      s3.getObject(params, function(err, data) {
+        if (err) {
+          console.log(err);
+          reject(err);
+        }
+        resolve(data);
+      })
+    });
+  },
   All() {
     return new Promise((resolve,reject) => {
       Promise.all([

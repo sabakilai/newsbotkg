@@ -9,11 +9,11 @@ var newChat = require("../models/newchat.js");
 function checkChanges() {
   return new Promise((resolve,reject)=>{
     Promise.all([
-      svodka.One('sputnik.json'),
-      svodka.One('24.json'),
-      svodka.One('kloop.json'),
-      svodka.One('azattyk.json'),
-      svodka.One('knews.json')
+      svodka.Raw('sputnik.json'),
+      svodka.Raw('24.json'),
+      svodka.Raw('kloop.json'),
+      svodka.Raw('azattyk.json'),
+      svodka.Raw('knews.json')
     ]).then((files)=>{
       console.log('files - ' + files);
       Promise.all([
