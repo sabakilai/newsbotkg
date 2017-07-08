@@ -48,7 +48,7 @@ function checkChanges() {
   })
 };
 
-module.exports = function {
+module.exports = function() {
   db.findAll({where: {subscribed: true }}).then((results) => {
     async.each(results,function (result,callback) {
       checkChanges().then((tosend) => {
