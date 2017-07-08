@@ -35,6 +35,7 @@ function checkChanges() {
               case 4: file = 'knews.json'; break;
             }
             if (files[i].link!=parsers[i].link) {
+              console.log('data - ' + files[i].link);
               savenews(file, JSON.stringify(parsers[i]));
               console.log('New ' + file + ' file');
               tosend.push(file)
