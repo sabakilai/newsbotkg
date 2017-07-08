@@ -8,8 +8,11 @@ var db = require("./data/db.js");
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var CronJob = require('cron').CronJob;
+
+
 var news = require('./libs/news');
 var svodka = require('./libs/svodka');
+var job = require('./lib/job');
 
 var app = express();
 
@@ -28,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 
-
+job();
 //news();
 //svodka.All();
 

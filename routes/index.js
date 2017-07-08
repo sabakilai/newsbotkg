@@ -56,7 +56,7 @@ router.post("/", function(req, res, next) {
               svodka.All().then((news) =>{
                 sms(news, chatId, ip,function() {
                   setTimeout(function() {
-                    sms('All comands', chatId, ip);
+                    sms(lastNews(), chatId, ip);
                   }, 3000);
                 });
               })
