@@ -15,6 +15,10 @@ var user = sequelize.define("user", {
 	state: {
 		type: Sequelize.BOOLEAN,
 	    defaultValue: true
+	},
+	subscribed: {
+		type: Sequelize.BOOLEAN,
+			defaultValue:false
 	}
 })
 
