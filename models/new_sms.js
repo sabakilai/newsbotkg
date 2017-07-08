@@ -22,7 +22,7 @@ module.exports=function(message, chatId, ip, callback){
 			if (err) {
 				reject(err);
 			}
-			resolve(body);
+			resolve(body.message);
 		});
 
 	})
