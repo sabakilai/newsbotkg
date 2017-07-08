@@ -32,7 +32,7 @@ module.exports = {
           console.log(err);
           reject(err);
         }
-        resolve(data);
+        resolve(data.Body.toString());
       })
     });
   },
