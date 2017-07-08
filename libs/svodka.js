@@ -32,6 +32,7 @@ module.exports = {
           console.log(err);
           reject(err);
         }
+        console.log(data.Body);
         resolve(data.Body);
       })
     });

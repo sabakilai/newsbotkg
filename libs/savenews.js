@@ -13,7 +13,7 @@ module.exports = function (file, data){
         if (perr) {
             reject("Error uploading data: ", perr);
         } else {
-            resolve('Added sputnik.json file ');
+            resolve('Added '+ file +' file ');
         }
         });
   })
