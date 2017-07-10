@@ -50,10 +50,10 @@ function checkChanges() {
 };
 
 module.exports = function() {
-  db.findAll({where: {subscribed: true }}).then((results) => {
-    async.each(results,function (result,callback) {
-      checkChanges().then((tosend) => {
-        if (tosend.length > 0) {
+  checkChanges().then((tosend) => {
+    if (tosend.length > 0) {
+      db.findAll({where: {subscribed: true }}).then((results) => {
+        async.each(results,function (result,callback) {
           var userId = result.userId;
           var ip = result.ip;
           var news = [];
@@ -78,11 +78,11 @@ module.exports = function() {
           }).catch((error) => {
             console.log(error);
           })
-        }else {
-          console.log('Nothing to send.');
-        }
-
+        })
       })
-    })
+    }else {
+      console.log('Nothing to send.');
+    }
+
   })
 }
