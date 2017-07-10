@@ -82,7 +82,7 @@ router.post("/", function(req, res, next) {
                       });
                     }, 500);
                   });
-                }, 5s00);
+                }, 500);
               })
               }).catch((error)=>{
                 console.log(error);
