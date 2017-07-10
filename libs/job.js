@@ -15,7 +15,6 @@ function checkChanges() {
       svodka.Raw('azattyk.json'),
       svodka.Raw('knews.json')
     ]).then((files)=>{
-      console.log('files - ' + files[0]);
       Promise.all([
         parser('https://ru.sputnik.kg/Kyrgyzstan/','.b-stories__item','.b-stories__title h2','a@href'),
         parser('https://24.kg/','.one','.title','.title a@href', '24.json'),
@@ -23,7 +22,6 @@ function checkChanges() {
         parser('https://rus.azattyk.org/z/3734','.media-block','h4','.content a@href'),
         parser('http://knews.kg/','.td-block-span4','h3','a@href')
       ]).then((parsers) =>{
-          console.log('parsers - ' + parsers[0]);
           var file;
           var tosend = [];
           for (var i = 0; i < 5; i++) {
@@ -34,9 +32,6 @@ function checkChanges() {
               case 3: file = 'azattyk.json'; break;
               case 4: file = 'knews.json'; break;
             }
-
-            console.log(file + 'from file - ' + files[i].link);
-            console.log(file + 'from pars - ' + parsers[i].link);
             if (files[i].link!=parsers[i].link) {
 
               savenews(file, JSON.stringify(parsers[i]));
