@@ -8,9 +8,6 @@ var db = require("./data/db.js");
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var CronJob = require('cron').CronJob;
-
-
-var svodka = require('./libs/svodka');
 var job = require('./libs/job');
 
 var app = express();
@@ -30,12 +27,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 
+
+
+new CronJob('00 2 * * * *', function() {
 job();
-//news();
-//svodka.All();
-
-new CronJob('00 47 20 * * *', function() {
-
 }, null, true, 'Asia/Bishkek');
 
 
