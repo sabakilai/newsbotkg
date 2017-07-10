@@ -33,7 +33,7 @@ router.post("/", function(req, res, next) {
         console.log("user follows");
         newChat(userId, ip, function(err, res, body) {
           var chatId = body.data.id;
-          var message = "Здравствуйте!Я буду присылать вам самые свежие новости. " + commandAll();
+          var message = "Здравствуйте!Я буду присылать вам самые свежие новости. " + commandAll(subscribed);
           sms(message, chatId, ip);
         })
       });
@@ -51,7 +51,7 @@ router.post("/", function(req, res, next) {
       		sms(errMessage, chatId, ip);
       		return;
       	}
-        var errMessage = "Некорректный ввод. " + commandAll();
+        var errMessage = "Некорректный ввод. " + commandAll(subscribed);
         if(content == "Последнее") {
           var message = "Вот последние пять новостей.";
           sms(message, chatId, ip, function() {
@@ -74,7 +74,7 @@ router.post("/", function(req, res, next) {
                             setTimeout(function () {
                               sms(output[4],chatId,ip,function () {
                                 setTimeout(function () {
-                                  sms(commandAll(),chatId,ip)
+                                  sms(commandAll(subscribed),chatId,ip)
                                 },500)
                               })
                             },500)
