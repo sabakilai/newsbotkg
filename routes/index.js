@@ -45,6 +45,7 @@ router.post("/", function(req, res, next) {
       	var content = req.body.data.content;
       	var chatId = req.body.data.chat_id;
         var subscribed = user.subscribed;
+        console.log(subscribed);
       	if(req.body.data.type != 'text/plain') {
       		console.log(errMessage);
       		sms(errMessage, chatId, ip);
