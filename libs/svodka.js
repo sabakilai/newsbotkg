@@ -32,7 +32,7 @@ module.exports = {
           console.log(err);
           reject(err);
         }
-        resolve(JSON.parse(data.Body.toString()));
+        resolve(JSON.stringify(data.Body.toString()));
       })
     });
   },
