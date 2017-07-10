@@ -26,7 +26,7 @@ function checkChanges() {
           console.log('parsers - ' + parsers[0]);
           var file;
           var tosend = [];
-          for (var i = 0; i < 4; i++) {
+          for (var i = 0; i < 5; i++) {
             switch (i) {
               case 0: file = 'sputnik.json'; break;
               case 1: file = '24.json'; break;
