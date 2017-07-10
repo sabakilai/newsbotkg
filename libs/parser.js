@@ -15,7 +15,7 @@ module.exports = function (url, main, title, link){
       if (err) {
         reject(err);
       }
-      resolve(JSON.stringify(data[0]))
+      resolve((data[0]))
     })
   })
 }

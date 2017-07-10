@@ -34,10 +34,9 @@ function checkChanges() {
               case 3: file = 'azattyk.json'; break;
               case 4: file = 'knews.json'; break;
             }
-            files[i] = JSON.parse(files[i]);
-            parsers[i] = JSON.parse(parsers[i]);
-            console.log('data files - ' + files[i].link);
-            console.log('data parsers - ' + parsers[i].link);
+
+            console.log(file + 'from file - ' + files[i].link);
+            console.log(file + 'from pars - ' + parsers[i].link);
             if (files[i].link!=parsers[i].link) {
 
               savenews(file, JSON.stringify(parsers[i]));
