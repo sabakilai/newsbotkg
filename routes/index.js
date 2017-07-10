@@ -75,15 +75,6 @@ router.post("/", function(req, res, next) {
               }).catch((error)=>{
                 console.log(error);
               })
-
-
-              svodka.All().then((news) =>{
-                sms(news, chatId, ip,function() {
-                  setTimeout(function() {
-                    sms(lastNews(), chatId, ip);
-                  }, 3000);
-                });
-              })
             }, 1000);
           })
         }
