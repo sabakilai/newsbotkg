@@ -33,7 +33,7 @@ function checkChanges() {
               case 4: file = 'knews.json'; break;
             }
             if (files[i].link!=parsers[i].link) {
-
+              console.log('new parser - ' + JSON.stringify(parsers[i]));
               savenews(file, JSON.stringify(parsers[i]));
               console.log('New ' + file + ' file');
               tosend.push(file)
@@ -60,6 +60,7 @@ module.exports = function() {
           var messages = [];
           for (var i = 0; i < tosend.length; i++) {
             news.push(svodka.One(tosend[i]))
+
           }
           Promise.all(news).then((output)=>{
             newChat(userId, ip, function(err, res, body) {
@@ -67,6 +68,7 @@ module.exports = function() {
                 var chatId = body.data.id;
               }
               for (var i = 0; i < output.length; i++) {
+                console.log('data to send - ' + output[i]);
                 messages.push(new_sms(output[i],chatId,ip));
               }
               Promise.all(messages).then((datas) => {
