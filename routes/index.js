@@ -54,6 +54,29 @@ router.post("/", function(req, res, next) {
           var message = "Вот последние пять новостей.";
           sms(message, chatId, ip, function() {
             setTimeout(function() {
+              Promise.all([
+                svodka.One('sputnik.json'),
+                svodka.One('24.json'),
+                svodka.One('kloop.json'),
+                svodka.One('azattyk.json'),
+                svodka.One('knews.json')
+              ]).then((output)=>{
+                Promise.all([
+                  new_sms(output[0],chatId,ip);
+                  new_sms(output[1],chatId,ip);
+                  new_sms(output[2],chatId,ip);
+                  new_sms(output[3],chatId,ip);
+                  new_sms(output[4],chatId,ip);
+                ]).then((messages)=>{
+                  console.log(messages);
+                }).catch((error)=>{
+                  console.log(error);
+                })
+              }).catch((error)=>{
+                console.log(error);
+              })
+
+
               svodka.All().then((news) =>{
                 sms(news, chatId, ip,function() {
                   setTimeout(function() {

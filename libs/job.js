@@ -16,7 +16,7 @@ function checkChanges() {
       svodka.Raw('knews.json')
     ]).then((files)=>{
       Promise.all([
-        parser('https://ru.sputnik.kg/Kyrgyzstan/','.b-news__item','a','a@href'),
+        parser('https://ru.sputnik.kg/Kyrgyzstan/','.b-stories__item','.b-stories__title h2','a@href'),
         parser('https://24.kg/','.one','.title','.title a@href', '24.json'),
         parser('https://kloop.kg/news/','.td-block-span12','.item-details h3','.item-details a@href'),
         parser('https://rus.azattyk.org/z/3734','.media-block','h4','.content a@href'),
