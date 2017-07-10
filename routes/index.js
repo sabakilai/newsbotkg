@@ -63,18 +63,23 @@ router.post("/", function(req, res, next) {
                 svodka.One('knews.json')
               ]).then((output)=>{
                 console.log(output);
-                Promise.all([
-                  new_sms(output[0],chatId,ip),
-                  new_sms(output[1],chatId,ip),
-                  new_sms(output[2],chatId,ip),
-                  new_sms(output[3],chatId,ip),
-                  new_sms(output[4],chatId,ip),
-                  new_sms(commandAll(),chatId,ip)
-                ]).then((messages)=>{
-                  console.log(messages);
-                }).catch((error)=>{
-                  console.log(error);
-                })
+                sms(output[0], chatId, ip, function() {
+                setTimeout(function() {
+                  sms(output[1], chatId, ip,function() {
+                    setTimeout(function() {
+                      sms(output[2], chatId, ip,function () {
+                        setTimeout(function () {
+                          sms(output[3],chatId,ip,function () {
+                            setTimeout(function () {
+                              sms(output[4],chatId,ip)
+                            },1000)
+                          })
+                        },1000)
+                      });
+                    }, 1000);
+                  });
+                }, 1000);
+              })
               }).catch((error)=>{
                 console.log(error);
               })
