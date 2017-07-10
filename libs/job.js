@@ -53,7 +53,30 @@ module.exports = function() {
   db.findAll({where: {subscribed: true }}).then((results) => {
     async.each(results,function (result,callback) {
       checkChanges().then((tosend) => {
-        console.log('tosend - ' + tosend);
+        var userId = result.userId;
+        var ip = result.ip;
+        var news = [];
+        var messages = [];
+        for (var i = 0; i < tosend.length; i++) {
+          news.push(svodka.One(tosend[i]))
+        }
+        Promise.all(news).then((output)=>{
+          newChat(userId, ip, function(err, res, body) {
+            if(body.data) {
+              var chatId = body.data.id;
+            }
+            for (var i = 0; i < output.length; i++) {
+              messages.push(new_sms(output[i],chatId,ip));
+            }
+            Promise.all(messages).then((datas) => {
+              console.log(datas);
+            }).catch((error)=>{
+              console.log(error);
+            })
+          })
+        }).catch((error) => {
+          console.log(error);
+        })
       })
     })
   })
