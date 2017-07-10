@@ -34,8 +34,11 @@ function checkChanges() {
             }
             if (files[i].link!=parsers[i].link) {
               console.log('new parser - ' + JSON.stringify(parsers[i]));
-              savenews(file, JSON.stringify(parsers[i]));
-              console.log('New ' + file + ' file');
+              savenews(file, JSON.stringify(parsers[i])).then((message)=>{
+                console.log(message);
+              }).catch((error)=>{
+                console.log(error);
+              });
               tosend.push(file)
             }
           }
