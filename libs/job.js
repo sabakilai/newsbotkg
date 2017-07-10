@@ -85,9 +85,11 @@ module.exports = function() {
           })
         })
       })
-    }else {
+    } else {
       console.log('Nothing to send.');
     }
 
+  }).catch((error)=>{
+    console.log(error);
   })
 }

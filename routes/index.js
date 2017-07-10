@@ -17,8 +17,8 @@ router.get('/', function(req, res, next) {
 router.post("/", function(req, res, next) {
   var ip = req.connection.remoteAddress;
     var event = req.body.event;
-    var lastNews = function () {
-      return "Введите 'Последнее', чтобы получить пять последних новостей"
+    var commandAll = function (subscribed) {
+      return "Введите 'Последнее', чтобы получить пять последних новостей. \n Введите 'Подписка', чтобы " + (subscribed ? "отключить" : "включить")  + " автоматическую рассылку новостей."
     }
 
     if(event == "user/unfollow") {
@@ -33,7 +33,7 @@ router.post("/", function(req, res, next) {
         console.log("user follows");
         newChat(userId, ip, function(err, res, body) {
           var chatId = body.data.id;
-          var message = "Здравствуйте!Я буду присылать вам самые свежие новости. " + lastNews();
+          var message = "Здравствуйте!Я буду присылать вам самые свежие новости. " + commandAll();
           sms(message, chatId, ip);
         })
       });
@@ -44,12 +44,13 @@ router.post("/", function(req, res, next) {
       .then(function(user) {
       	var content = req.body.data.content;
       	var chatId = req.body.data.chat_id;
+        var subscribed = user.subscribed;
       	if(req.body.data.type != 'text/plain') {
       		console.log(errMessage);
       		sms(errMessage, chatId, ip);
       		return;
       	}
-        var errMessage = "Некорректный ввод. " + lastNews();
+        var errMessage = "Некорректный ввод. " + commandAll();
         if(content == "Последнее") {
           var message = "Вот последние пять новостей.";
           sms(message, chatId, ip, function() {
@@ -67,6 +68,7 @@ router.post("/", function(req, res, next) {
                   new_sms(output[2],chatId,ip),
                   new_sms(output[3],chatId,ip),
                   new_sms(output[4],chatId,ip),
+                  new_sms(commandAll(),chatId,ip)
                 ]).then((messages)=>{
                   console.log(messages);
                 }).catch((error)=>{
@@ -78,6 +80,19 @@ router.post("/", function(req, res, next) {
             }, 1000);
           })
         }
+        else if (content == "Подписка") {
+            if(subscribed) {
+             db.update({subscribed: false}, {where: {userId: userId}}).then(function(user) {
+               let message = "Вы отключили рассылку новостей. "+commandAll(!subscribed);
+               sms(message, chatId, ip);
+             })
+           } else {
+             db.update({subscribed: true}, {where: {userId: userId}}).then(function(user) {
+               let message = "Вы включили рассылку новостей. "+commandAll(!subscribed);
+               sms(message, chatId, ip);
+             })
+           }
+          }
         else {
           console.log(errMessage);
       		sms(errMessage, chatId, ip);
