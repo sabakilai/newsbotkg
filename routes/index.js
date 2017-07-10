@@ -71,14 +71,18 @@ router.post("/", function(req, res, next) {
                         setTimeout(function () {
                           sms(output[3],chatId,ip,function () {
                             setTimeout(function () {
-                              sms(output[4],chatId,ip)
-                            },1000)
+                              sms(output[4],chatId,ip,function () {
+                                setTimeout(function () {
+                                  sms(commandAll,chatId,ip)
+                                },500)
+                              })
+                            },500)
                           })
-                        },1000)
+                        },500)
                       });
-                    }, 1000);
+                    }, 500);
                   });
-                }, 1000);
+                }, 5s00);
               })
               }).catch((error)=>{
                 console.log(error);
