@@ -73,7 +73,7 @@ router.post("/", function(req, res, next) {
                             setTimeout(function () {
                               sms(output[4],chatId,ip,function () {
                                 setTimeout(function () {
-                                  sms(commandAll,chatId,ip)
+                                  sms(commandAll(),chatId,ip)
                                 },500)
                               })
                             },500)
