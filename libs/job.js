@@ -36,7 +36,7 @@ function checkChanges() {
             }
             if (files[i].link!==parsers[i].link) {
               console.log('data - ' + files[i].link);
-              
+
               savenews(file, JSON.stringify(parsers[i]));
               console.log('New ' + file + ' file');
               tosend.push(file)
@@ -56,7 +56,7 @@ module.exports = function() {
   db.findAll({where: {subscribed: true }}).then((results) => {
     async.each(results,function (result,callback) {
       checkChanges().then((tosend) => {
-        console.log(tosend);
+        console.log('tosend - ' + tosend);
       })
     })
   })
