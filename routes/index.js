@@ -62,6 +62,7 @@ router.post("/", function(req, res, next) {
                 svodka.One('azattyk.json'),
                 svodka.One('knews.json')
               ]).then((output)=>{
+                console.log(output);
                 Promise.all([
                   new_sms(output[0],chatId,ip),
                   new_sms(output[1],chatId,ip),
