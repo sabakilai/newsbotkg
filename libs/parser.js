@@ -15,6 +15,10 @@ module.exports = function (url, main, title, link){
       if (err) {
         reject(err);
       }
+      if (data[0] == 'undefined') {
+        console.log('undefined url - ' + url);
+        resolve('undefined');
+      }
       console.log("parser data - " + JSON.stringify(data[0]));
       resolve((data[0]))
     })
