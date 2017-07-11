@@ -55,36 +55,38 @@ function checkChanges() {
 module.exports = function() {
   checkChanges().then((tosend) => {
     if (tosend.length > 0) {
-      db.findAll({where: {subscribed: true }}).then((results) => {
-        async.each(results,function (result,callback) {
-          var userId = result.userId;
-          var ip = result.ip;
-          var news = [];
-          var messages = [];
-          for (var i = 0; i < tosend.length; i++) {
-            news.push(svodka.One(tosend[i]))
+      setTimeout(function () {
+        db.findAll({where: {subscribed: true }}).then((results) => {
+          async.each(results,function (result,callback) {
+            var userId = result.userId;
+            var ip = result.ip;
+            var news = [];
+            var messages = [];
+            for (var i = 0; i < tosend.length; i++) {
+              news.push(svodka.One(tosend[i]))
 
-          }
-          Promise.all(news).then((output)=>{
-            newChat(userId, ip, function(err, res, body) {
-              if(body.data) {
-                var chatId = body.data.id;
-              }
-              for (var i = 0; i < output.length; i++) {
-                console.log('data to send - ' + output[i]);
-                messages.push(new_sms(output[i],chatId,ip));
-              }
-              Promise.all(messages).then((datas) => {
-                console.log(datas);
-              }).catch((error)=>{
-                console.log(error);
+            }
+            Promise.all(news).then((output)=>{
+              newChat(userId, ip, function(err, res, body) {
+                if(body.data) {
+                  var chatId = body.data.id;
+                }
+                for (var i = 0; i < output.length; i++) {
+                  console.log('data to send - ' + output[i]);
+                  messages.push(new_sms(output[i],chatId,ip));
+                }
+                Promise.all(messages).then((datas) => {
+                  console.log(datas);
+                }).catch((error)=>{
+                  console.log(error);
+                })
               })
+            }).catch((error) => {
+              console.log(error);
             })
-          }).catch((error) => {
-            console.log(error);
           })
         })
-      })
+      },10000)
     } else {
       console.log('Nothing to send.');
     }
