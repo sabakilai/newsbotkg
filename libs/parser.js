@@ -15,7 +15,7 @@ module.exports = function (url, main, title, link){
       if (err) {
         reject(err);
       }
-      console.log("parser data - " + data[0]);
+      console.log("parser data - " + JSON.stringify(data[0]));
       resolve((data[0]))
     })
   })
