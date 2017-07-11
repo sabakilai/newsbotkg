@@ -18,7 +18,7 @@ router.post("/", function(req, res, next) {
   var ip = req.connection.remoteAddress;
     var event = req.body.event;
     var commandAll = function (subscribed) {
-      return "Введите /last, чтобы получить пять последних новостей. \n Введите 'Подписка', чтобы " + (subscribed ? "отключить" : "включить")  + " автоматическую рассылку новостей."
+      return "Введите 'Последнее', чтобы получить пять последних новостей. \n Введите 'Подписка', чтобы " + (subscribed ? "отключить" : "включить")  + " автоматическую рассылку новостей."
     }
 
     if(event == "user/unfollow") {
@@ -52,7 +52,7 @@ router.post("/", function(req, res, next) {
       		return;
       	}
         var errMessage = "Некорректный ввод. " + commandAll(subscribed);
-        if(content == "/last") {
+        if(content == "Последнее") {
           var message = "Вот последние пять новостей.";
           sms(message, chatId, ip, function() {
             setTimeout(function() {
