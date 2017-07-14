@@ -9,7 +9,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var CronJob = require('cron').CronJob;
 var job = require('./libs/job');
-
+var http = require('http');
 var app = express();
 
 // view engine setup
