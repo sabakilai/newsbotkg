@@ -67,6 +67,6 @@ app.use(function(err, req, res, next) {
 });
 setInterval(function() {
     console.log("Dont sleep!");
-    http.get("https://newsbotkg.herokuapp.com/");
+    http.get("http://newsbotkg.herokuapp.com/");
 }, 300000); // every 5 minutes (300000)
 module.exports = app;
