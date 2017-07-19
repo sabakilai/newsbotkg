@@ -18,7 +18,7 @@ router.post("/", function(req, res, next) {
   var ip = req.connection.remoteAddress;
     var event = req.body.event;
     var commandAll = function (subscribed) {
-      return "Введите 'Последнее', чтобы получить пять последних новостей. \n Введите 'Подписка', чтобы " + (subscribed ? "отключить" : "включить")  + " автоматическую рассылку новостей."
+      return "Введите 'Последнее', чтобы получить последние новости из всех источников. \n Введите 'Подписка', чтобы " + (subscribed ? "отключить" : "включить")  + " автоматическую рассылку новостей."
     }
 
     if(event == "user/unfollow") {
@@ -53,7 +53,7 @@ router.post("/", function(req, res, next) {
       	}
         var errMessage = "Некорректный ввод. " + commandAll(subscribed);
         if(content == "Последнее") {
-          var message = "Вот последние пять новостей.";
+          var message = "Вот последние новости из всех источников.";
           sms(message, chatId, ip, function() {
             setTimeout(function() {
               Promise.all([
@@ -61,7 +61,8 @@ router.post("/", function(req, res, next) {
                 svodka.One('24.json'),
                 svodka.One('kloop.json'),
                 svodka.One('azattyk.json'),
-                svodka.One('knews.json')
+                svodka.One('knews.json'),
+                svodka.One('akipress.json')
               ]).then((output)=>{
                 console.log(output);
                 sms(output[0], chatId, ip, function() {
@@ -74,7 +75,11 @@ router.post("/", function(req, res, next) {
                             setTimeout(function () {
                               sms(output[4],chatId,ip,function () {
                                 setTimeout(function () {
-                                  sms(commandAll(subscribed),chatId,ip)
+                                  sms(output[5],chatId,ip,function () {
+                                    setTimeout(function () {
+                                      sms(commandAll(subscribed),chatId,ip)
+                                    },500)
+                                  })
                                 },500)
                               })
                             },500)
