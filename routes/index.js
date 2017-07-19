@@ -18,7 +18,7 @@ router.post("/", function(req, res, next) {
   var ip = req.connection.remoteAddress;
     var event = req.body.event;
     var commandAll = function (subscribed) {
-      return "Введите 'Последнее', чтобы получить последние новости из всех источников. \n Введите 'Подписка', чтобы " + (subscribed ? "отключить" : "включить")  + " автоматическую рассылку новостей."
+      return "Введите 'Последнее', чтобы получить последние новости из всех источников. \nВведите 'Подписка', чтобы " + (subscribed ? "ОТКЛЮЧИТЬ" : "ВКЛЮЧИТЬ")  + " автоматическую рассылку новостей."
     }
 
     if(event == "user/unfollow") {
