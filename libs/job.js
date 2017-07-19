@@ -13,24 +13,27 @@ function checkChanges() {
       svodka.Raw('24.json'),
       svodka.Raw('kloop.json'),
       svodka.Raw('azattyk.json'),
-      svodka.Raw('knews.json')
+      svodka.Raw('knews.json'),
+      svodka.Raw('akipress.json')
     ]).then((files)=>{
       Promise.all([
         parser('https://ru.sputnik.kg/Kyrgyzstan/','.b-stories__item','.b-stories__title h2','a@href'),
         parser('https://24.kg/','.one','.title','.title a@href', '24.json'),
         parser('https://kloop.kg/news/','.td-block-span12','.item-details h3','.item-details a@href'),
         parser('https://rus.azattyk.org/z/3734','.media-block','h4','.content a@href'),
-        parser('http://knews.kg/','.td-block-span4','h3','a@href')
+        parser('http://knews.kg/','.td-block-span4','h3','a@href'),
+        parser('http://akipress.org/','.newslink','','@href')
       ]).then((parsers) =>{
           var file;
           var tosend = [];
-          for (var i = 0; i < 5; i++) {
+          for (var i = 0; i < 6; i++) {
             switch (i) {
               case 0: file = 'sputnik.json'; break;
               case 1: file = '24.json'; break;
               case 2: file = 'kloop.json'; break;
               case 3: file = 'azattyk.json'; break;
               case 4: file = 'knews.json'; break;
+              case 5: file = 'akipress.json'; break;
             }
             if (files[i].link!=parsers[i].link) {
               console.log('new parser - ' + JSON.stringify(parsers[i]));
