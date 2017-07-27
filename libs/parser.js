@@ -15,12 +15,11 @@ module.exports = function (url, main, title, link){
       if (err) {
         reject(err);
       }
-      if (data[0] == 'undefined') {
-        console.log('undefined url - ' + url);
+      if (data) {
+        resolve((data[0]))
+      } else {
         resolve('undefined');
       }
-
-      resolve((data[0]))
     })
   })
 }
