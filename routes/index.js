@@ -18,7 +18,7 @@ router.post("/", function(req, res, next) {
   var ip = req.connection.remoteAddress;
     var event = req.body.event;
     var commandAll = function (subscribed) {
-      return "Для получения свежих новостей, введите команду 'Последнее'.\nДля " + (subscribed ? "отключения" : "включения")  + " автоматической рассылки новостей, введите команду 'Подписка'."
+      return "Для внесения изменений, пришлите мне одну из команд: 'Последнее', чтобы получить свежие новости;\n'Подписка', чтобы" + (subscribed ? "отключить" : "включить")  + " ежедневную рассылку."
     }
 
     if(event == "user/unfollow") {
@@ -33,7 +33,7 @@ router.post("/", function(req, res, next) {
         console.log("user follows");
         newChat(userId, ip, function(err, res, body) {
           var chatId = body.data.id;
-          var message = "Здравствуйте! " + commandAll(user.subscribed);
+          var message = "Здравствуйте! Для получения свежих новостей, введите команду 'Последнее'. Для включения автоматической рассылки новостей, введите команду 'Подписка'.";
           sms(message, chatId, ip);
         })
       });
