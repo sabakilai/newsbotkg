@@ -18,7 +18,7 @@ router.post("/", function(req, res, next) {
   var ip = req.connection.remoteAddress;
     var event = req.body.event;
     var commandAll = function (subscribed) {
-      return "Введите 'Последнее', чтобы получить последние новости из всех источников. \nВведите 'Подписка', чтобы " + (subscribed ? "ОТКЛЮЧИТЬ" : "ВКЛЮЧИТЬ")  + " автоматическую рассылку новостей."
+      return "Для получения свежих новостей, введите команду 'Последнее'.\nДля " + (subscribed ? "отключения" : "включения")  + " автоматической рассылки новостей, введите команду 'Подписка'."
     }
 
     if(event == "user/unfollow") {
@@ -33,7 +33,7 @@ router.post("/", function(req, res, next) {
         console.log("user follows");
         newChat(userId, ip, function(err, res, body) {
           var chatId = body.data.id;
-          var message = "Здравствуйте!Я буду присылать вам самые свежие новости. " + commandAll(user.subscribed);
+          var message = "Здравствуйте! " + commandAll(user.subscribed);
           sms(message, chatId, ip);
         })
       });
@@ -53,47 +53,42 @@ router.post("/", function(req, res, next) {
       	}
         var errMessage = "Некорректный ввод. " + commandAll(subscribed);
         if(content == "Последнее") {
-          var message = "Вот последние новости из всех источников.";
-          sms(message, chatId, ip, function() {
-            setTimeout(function() {
-              Promise.all([
-                svodka.One('sputnik.json'),
-                svodka.One('24.json'),
-                svodka.One('kloop.json'),
-                svodka.One('azattyk.json'),
-                svodka.One('knews.json'),
-                svodka.One('akipress.json')
-              ]).then((output)=>{
-                console.log(output);
-                sms(output[0], chatId, ip, function() {
-                setTimeout(function() {
-                  sms(output[1], chatId, ip,function() {
-                    setTimeout(function() {
-                      sms(output[2], chatId, ip,function () {
-                        setTimeout(function () {
-                          sms(output[3],chatId,ip,function () {
-                            setTimeout(function () {
-                              sms(output[4],chatId,ip,function () {
-                                setTimeout(function () {
-                                  sms(output[5],chatId,ip,function () {
-                                    setTimeout(function () {
-                                      sms(commandAll(subscribed),chatId,ip)
-                                    },500)
-                                  })
-                                },500)
-                              })
-                            },500)
-                          })
-                        },500)
-                      });
-                    }, 500);
-                  });
-                }, 500);
-              })
-              }).catch((error)=>{
-                console.log(error);
-              })
-            }, 1000);
+          Promise.all([
+            svodka.One('sputnik.json'),
+            svodka.One('24.json'),
+            svodka.One('kloop.json'),
+            svodka.One('azattyk.json'),
+            svodka.One('knews.json'),
+            svodka.One('akipress.json')
+          ]).then((output)=>{
+            console.log(output);
+            sms(output[0], chatId, ip, function() {
+              setTimeout(function() {
+                sms(output[1], chatId, ip,function() {
+                  setTimeout(function() {
+                    sms(output[2], chatId, ip,function () {
+                      setTimeout(function () {
+                        sms(output[3],chatId,ip,function () {
+                          setTimeout(function () {
+                            sms(output[4],chatId,ip,function () {
+                              setTimeout(function () {
+                                sms(output[5],chatId,ip,function () {
+                                  setTimeout(function () {
+                                    sms(commandAll(subscribed),chatId,ip)
+                                  },500)
+                                })
+                              },500)
+                            })
+                          },500)
+                        })
+                      },500)
+                    });
+                  }, 500);
+                });
+              }, 500);
+            })
+          }).catch((error)=>{
+            console.log(error);
           })
         }
         else if (content == "Подписка") {
