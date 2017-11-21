@@ -103,7 +103,10 @@ router.post("/", function(req, res, next) {
                sms(message, chatId, ip);
              })
            }
-          }
+        }
+        else if (content == "Старт") {
+          sms(commandAll(subscribed),chatId, ip)
+        }
         else {
           console.log(errMessage);
       		sms(errMessage, chatId, ip);
